@@ -1,15 +1,39 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Dashboard</title>
-    <script type="text/javascript" src="/dashboard.js"></script>
+    <title>Dashboard Control Panel</title>
+    <script type="text/javascript" src="/webiopi.js"></script>
     <script type="text/javascript">
-    function turnOff(){
-        webiopi().callMacro("relay1off");
+    function relayOff_1() {
+        webiopi().callMacro("relayOff_1");
     }
 
-    function turnOn(){
-        webiopi().callMacro("relay1on");
+    function relayOn_1() {
+        webiopi().callMacro("relayOn_1");
+    }
+
+    function relayOff_2() {
+        webiopi().callMacro("relayOff_2");
+    }
+
+    function relayOn_2() {
+        webiopi().callMacro("relayOn_2");
+    }
+
+    function relayOff_3() {
+        webiopi().callMacro("relayOff_3");
+    }
+
+    function relayOn_3() {
+        webiopi().callMacro("relayOn_3");
+    }
+
+    function relayOff_4() {
+        webiopi().callMacro("relayOff_4");
+    }
+
+    function relayOn_4() {
+        webiopi().callMacro("relayOn_4");
     }
 
     </script>
@@ -41,9 +65,22 @@
 </head>
 <body>
     <div id="controls" align="center"></div>
-    <center><h3>Hello World</h3></center>
-
-    <button class="myButton" onclick="turnOff">Turn Off</button>
-    <button class="myButton" onclick="turnOn">Turn Off</button>
+    <center><h1 style="color:blue;font-family:Helvetica;"l>Dashboard</h1></center>
+    <!-- Relay_2 -->
+    <h3 style="font-family:Helvetica">Relay 1</h3>
+    <button class="myButton" onclick="relayOff_1()">Turn Off Relay_1</button>
+    <button class="myButton" onclick="relayOn_1()">Turn On Relay_1</button>
+    <!-- Relay_2 -->
+    <h3 style="font-family:Helvetica">Relay 2</h3>
+    <button class="myButton" onclick="relayOff_2()">Turn Off Relay_2</button>
+    <button class="myButton" onclick="relayOn_2()">Turn On Relay_2</button>
+    <!-- Relay_3 -->
+    <h3 style="font-family:Helvetica">Relay 3</h3>
+    <button class="myButton" onclick="relayOff_3()">Turn Off Relay_3</button>
+    <button class="myButton" onclick="relayOn_3()">Turn On Relay_3</button>
+    <!-- Relay_4 -->
+    <h3 style="font-family:Helvetica">Relay 4</h3>
+    <button class="myButton" onclick="relayOff_4()">Turn Off Relay_4</button>
+    <button class="myButton" onclick="relayOn_4()">Turn On Relay_4</button>
 </body>
 </html>
