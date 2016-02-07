@@ -1,77 +1,85 @@
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Dashboard Control Panel</title>
-</head>
+#!/usr/bin/python
 
-<body>
-    <script type="text/javascript" src="/webiopi.js"></script>
-    <script type="text/javascript">
-    function relayOff_1() {
-        webiopi().callMacro("relayOff_1");
-    }
+# Import libraries
+import webiopi
+import smbus as smbus
+import time
 
-    function relayOn_1() {
-        webiopi().callMacro("relayOn_1");
-    }
+# Config I2C bus
+bus = smbus.SMBus(1)
 
-    function relayOff_2() {
-        webiopi().callMacro("relayOff_2");
-    }
+# This is the address we setup in the Arduino Program
+address = 0x04
 
-    function relayOn_2() {
-        webiopi().callMacro("relayOn_2");
-    }
+# Define functions
+def writeNumber(val):
+	bus.write_byte(address, val)
+	print val
 
-    function relayOff_3() {
-        webiopi().callMacro("relayOff_3");
-    }
+# Add macro
+@webiopi.macro
+def relayOff_1():
+	writeNumber(0)
 
-    function relayOn_3() {
-        webiopi().callMacro("relayOn_3");
-    }
+@webiopi.macro
+def relayOn_1():
+	writeNumber(1)
 
-    function relayOff_4() {
-        webiopi().callMacro("relayOff_4");
-    }
+@webiopi.macro
+def relayOff_2():
+	writeNumber(2)
 
-    function relayOn_4() {
-        webiopi().callMacro("relayOn_4");
-    }
+@webiopi.macro
+def relayOn_2():
+	writeNumber(3)
 
-    function relayOff_n() {
-        webiopi().callMacro("relayOff_n");
-    }
+@webiopi.macro
+def relayOff_3():
+	writeNumber(4)
 
-    function easterEgg() {
-        webiopi().callMacro("easterEgg");
-    }
+@webiopi.macro
+def relayOn_3():
+	writeNumber(5)
 
-    </script>
+@webiopi.macro
+def relayOff_4():
+	writeNumber(6)
 
-    <div id="controls" align="center"></div>
-    <center><h1>Your Dashboard</h1></center>
-    <!-- Relay_1 -->
-    <h3>Relay 1</h3>
-    <button class="myButton" onclick="relayOff_1()">Turn Off Relay_1</button>
-    <button class="myButtonOn" onclick="relayOn_1()">Turn On Relay_1</button>
-    <!-- Relay_2 -->
-    <h3>Relay 2</h3>
-    <button class="myButton" onclick="relayOff_2()">Turn Off Relay_2</button>
-    <button class="myButtonOn" onclick="relayOn_2()">Turn On Relay_2</button>
-    <!-- Relay_3 -->
-    <h3>Relay 3</h3>
-    <button class="myButton" onclick="relayOff_3()">Turn Off Relay_3</button>
-    <button class="myButtonOn" onclick="relayOn_3()">Turn On Relay_3</button>
-    <!-- Relay_4 -->
-    <h3>Relay 4</h3>
-    <button class="myButton" onclick="relayOff_4()">Turn Off Relay_4</button>
-    <button class="myButtonOn" onclick="relayOn_4()">Turn On Relay_4</button>
-    <!-- All -->
-    <!-- <h3>All Relays</h3> -->
-    <!-- <button class="myButton" onclick="relayOff_n()">Turn Off all Relays</button> -->
-    <!-- <button class="myButton" onclick="relayOn_n()">Turn On all Relays</button> -->
+@webiopi.macro
+def relayOn_4():
+	writeNumber(7)
 
-</body>
-</html>
+@webiopi.macro
+def relayOff_n():
+	writeNumber(0)
+	writeNumber(2)
+	writeNumber(4)
+	writeNumber(6)
+
+@webiopi.macro
+def relayOn_n():
+	writeNumber(1)
+	writeNumber(3)
+	writeNumber(5)
+	writeNumber(7)
+
+# Start the webiopi server
+server = webiopi.Server(port=8000)
+
+# Add server macro
+server.addMacro(relayOff_1)
+server.addMacro(relayOn_1)
+server.addMacro(relayOff_2)
+server.addMacro(relayOn_2)
+server.addMacro(relayOff_3)
+server.addMacro(relayOn_3)
+server.addMacro(relayOff_4)
+server.addMacro(relayOn_4)
+server.addMacro(relayOff_n)
+server.addMacro(relayOn_n)
+
+# Run default loop
+webiopi.runLoop()
+
+# Cleanly stop server
+server.stop()
