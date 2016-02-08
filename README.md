@@ -17,7 +17,11 @@ Uses HTML/CSS and Python 3, in conjunction with [WebIOPi](http://webiopi.trouch.
   - Any other cables for the relay
 2. User Interface Setup
   - On and Off buttons for simplicity
-3. That's it!
+3. Relay Setup
+  - Unscrew cable holder
+  - Insert cable
+  - Screw back cable holder, ensuring a strong connection
+4. That's it!
 
 ### SSH and Connections
 - Raspberry Pi
